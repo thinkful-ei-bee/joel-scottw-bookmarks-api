@@ -5,7 +5,7 @@ const cors = require('cors')
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
 const winston = require('winston');
-const cardRouter = require('./card/card-router')
+const bookmarkRouter = require('./bookmark/bookmark-router')
 const listRouter = require('./list/list-router')
 const authMiddleware = require('./auth')
 const app = express()
@@ -19,7 +19,7 @@ app.use(helmet())
 app.use(cors())
 
 app.use(authMiddleware)
-app.use('/api', cardRouter)
+app.use('/api', bookmarkRouter)
 app.use('/api', listRouter)
 
 app.use(function errorHandler(error, req, res, next) {

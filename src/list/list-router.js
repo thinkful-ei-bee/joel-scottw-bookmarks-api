@@ -1,7 +1,7 @@
 const express = require('express')
 const uuid = require('uuid/v4')
 const logger = require('../logger')
-const { cards, lists } = require('../store')
+const { bookmarks, lists } = require('../store')
 
 const listRouter = express.Router()
 const bodyParser = express.json()
@@ -14,7 +14,7 @@ listRouter
   })
   .post(bodyParser, (req, res) => {
     // move implementation logic into here
-    const { header, cardIds = [] } = req.body;
+    const { header, bookmarkIds = [] } = req.body;
   
     if (!header) {
       logger.error(`Header is required`);
@@ -23,13 +23,13 @@ listRouter
         .send('Invalid data');
     }
   
-    // check card IDs
-    if (cardIds.length > 0) {
+    // check bookmark IDs
+    if (bookmarkIds.length > 0) {
       let valid = true;
-      cardIds.forEach(cid => {
-        const card = cards.find(c => c.id == cid);
-        if (!card) {
-          logger.error(`Card with id ${cid} not found in cards array.`);
+      bookmarkIds.forEach(bid => {
+        const bookmark = bookmarks.find(b => b.id == bid);
+        if (!bookmark) {
+          logger.error(`Bookmark with id ${bid} not found in cards array.`);
           valid = false;
         }
       });
@@ -47,7 +47,7 @@ listRouter
     const list = {
       id,
       header,
-      cardIds
+      bookmarkIds
     };
   
     lists.push(list);

@@ -94,4 +94,4 @@ bookmarkRouter
       .end();
   })
 
-module.exports = cardRouter
+module.exports = bookmarkRouter
