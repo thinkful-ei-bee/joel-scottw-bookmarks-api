@@ -1,7 +1,7 @@
 {
-  "name": "express-boilerplate",
-  "version": "1.0.0",
-  "description": "",
+  "name": "bookmarks-api",
+  "version": "0.0.1",
+  "description": "https://thinkful-list-api.herokuapp.com/endpoints/bookmarks",
   "main": "index.js",
   "scripts": {
     "test": "mocha --require test/setup.js",
