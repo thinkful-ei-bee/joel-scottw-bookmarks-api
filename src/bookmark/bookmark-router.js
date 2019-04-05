@@ -6,8 +6,8 @@ const { bookmarks, lists } = require('../store')
 const bookmarkRouter = express.Router()
 const bodyParser = express.json()
 
-cardRouter
-  .route('/card')
+bookmarkRouter
+  .route('/bookmarks')
   .get((req, res) => {
     res.json(cards);
   })
@@ -21,8 +21,8 @@ cardRouter
         .send('Invalid data');
     }
     
-    if (!content) {
-      logger.error(`Content is required`);
+    if (!url) {
+      logger.error(`Url is required`);
       return res
         .status(400)
         .send('Invalid data');
