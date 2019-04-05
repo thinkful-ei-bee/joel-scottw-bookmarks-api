@@ -53,7 +53,7 @@ bookmarkRouter
   .route('/bookmarks/:id')
   .get((req, res) => {
     const { id } = req.params;
-    console.log(id);
+    
     const bookmark = bookmarks.find(b => b.id == id);
   
     // make sure we found a bookmark
