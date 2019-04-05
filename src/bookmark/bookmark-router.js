@@ -9,7 +9,7 @@ const bodyParser = express.json()
 bookmarkRouter
   .route('/bookmarks')
   .get((req, res) => {
-    res.json(cards);
+    res.json(bookmarks);
   })
   .post(bodyParser, (req, res) => {
     const { title, url, desc, rating } = req.body;
@@ -55,7 +55,7 @@ bookmarkRouter
     const { id } = req.params;
     const book = bookmarks.find(b => b.id == id);
   
-    // make sure we found a card
+    // make sure we found a bookmark
     if (!bookmark) {
       logger.error(`Bookmark with id ${id} not found.`);
       return res
@@ -63,7 +63,7 @@ bookmarkRouter
         .send('Bookmark Not Found');
     }
   
-    res.json(card);
+    res.json(bookmark);
   })
   .delete((req, res) => {
     // move implementation logic into here
@@ -78,8 +78,8 @@ bookmarkRouter
         .send('Not found');
     }
   
-    //remove card from lists
-    //assume cardIds are not duplicated in the cardIds array
+    //remove bookmark from lists
+    //assume bookmarkIds are not duplicated in the bookmarkIds array
     lists.forEach(list => {
       const bookmarkIds = list.bookmarkIds.filter(bid => bid !== id);
       list.bookmarkIds = bookmarkIds;

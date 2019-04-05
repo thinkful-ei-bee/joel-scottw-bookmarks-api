@@ -20,7 +20,7 @@ app.use(cors())
 
 app.use(authMiddleware)
 app.use('/api', bookmarkRouter)
-app.use('/api', listRouter)
+//app.use('/api', listRouter)
 
 app.use(function errorHandler(error, req, res, next) {
   let response
