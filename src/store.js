@@ -1,13 +1,15 @@
-const cards = [{
+const bookmarks = [{
   id: 1,
   title: 'Task One',
-  content: 'This is card one'
+  url: "http://google.com",
+  desc: 'This is card one',
+  rating: 4
 }]
 
 const lists = [{
   id: 1,
   header: 'List One',
-  cardIds: [1]
+  bookmarksdIds: [1]
 }]
 
-module.exports = { cards, lists }
+module.exports = { bookmarks, lists }
