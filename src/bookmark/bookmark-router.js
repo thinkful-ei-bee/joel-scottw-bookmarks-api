@@ -12,7 +12,7 @@ bookmarkRouter
     res.json(cards);
   })
   .post(bodyParser, (req, res) => {
-    const { title, content } = req.body;
+    const { title, url, desc, rating } = req.body;
   
     if (!title) {
       logger.error(`Title is required`);
@@ -30,35 +30,37 @@ bookmarkRouter
   
     // get an id
     const id = uuid();
-  
-    const card = {
+
+    const bookmark = {
       id,
       title,
-      content
+      url,
+      desc,
+      rating
     };
   
-    cards.push(card);
+    bookmarks.push(bookmark);
   
-    logger.info(`Card with id ${id} created`);
+    logger.info(`Bookmark with id ${id} created`);
   
     res
       .status(201)
-      .location(`http://localhost:8000/card/${id}`)
-      .json(card);
+      .location(`http://localhost:8000/bookmarks/${id}`)
+      .json(bookmark);
   })
 
-cardRouter
-  .route('/card/:id')
+bookmarkRouter
+  .route('/bookmarks/:id')
   .get((req, res) => {
     const { id } = req.params;
-    const card = cards.find(c => c.id == id);
+    const book = bookmarks.find(b => b.id == id);
   
     // make sure we found a card
-    if (!card) {
-      logger.error(`Card with id ${id} not found.`);
+    if (!bookmark) {
+      logger.error(`Bookmark with id ${id} not found.`);
       return res
         .status(404)
-        .send('Card Not Found');
+        .send('Bookmark Not Found');
     }
   
     res.json(card);
@@ -67,10 +69,10 @@ cardRouter
     // move implementation logic into here
     const { id } = req.params;
   
-    const cardIndex = cards.findIndex(c => c.id == id);
+    const bookmarkIndex = bookmarks.findIndex(b => b.id == id);
   
-    if (cardIndex === -1) {
-      logger.error(`Card with id ${id} not found.`);
+    if (bookmarkIndex === -1) {
+      logger.error(`Bookmark with id ${id} not found.`);
       return res
         .status(404)
         .send('Not found');
@@ -79,13 +81,13 @@ cardRouter
     //remove card from lists
     //assume cardIds are not duplicated in the cardIds array
     lists.forEach(list => {
-      const cardIds = list.cardIds.filter(cid => cid !== id);
-      list.cardIds = cardIds;
+      const bookmarkIds = list.bookmarkIds.filter(bid => bid !== id);
+      list.bookmarkIds = bookmarkIds;
     });
   
-    cards.splice(cardIndex, 1);
+    bookmarks.splice(bookmarkIndex, 1);
   
-    logger.info(`Card with id ${id} deleted.`);
+    logger.info(`Bookmark with id ${id} deleted.`);
   
     res
       .status(204)
