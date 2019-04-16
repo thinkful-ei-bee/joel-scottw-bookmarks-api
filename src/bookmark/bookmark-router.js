@@ -18,14 +18,21 @@ bookmarkRouter
       logger.error(`Title is required`);
       return res
         .status(400)
-        .send('Invalid data');
+        .send('Invalid data - title');
     }
     
     if (!url) {
       logger.error(`Url is required`);
       return res
         .status(400)
-        .send('Invalid data');
+        .send('Invalid data - url');
+    }
+
+    if (rating < 0 || rating > 5) {
+      logger.error(`A rating of < 0 and > 5 is required`);
+      return res
+        .status(400)
+        .send('Invalid data - rating');
     }
   
     // get an id
